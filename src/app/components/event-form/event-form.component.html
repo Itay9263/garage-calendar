@@ -1,0 +1,33 @@
+<form [formGroup]="eventForm" (ngSubmit)="submitForm()">
+    <div class="group-container" formArrayName="events" *ngFor="let event of events.controls; let i = index">
+        <div [formGroupName]="i">
+            <div class="control-container">
+                <span class="control-title">Treatment Date</span>
+                <input formControlName="treatmentDate" type="datetime-local">
+            </div>
+
+            <div class="control-container">
+                <span class="control-title">Test Date</span>
+                <input formControlName="testDate" type="datetime-local">
+            </div>
+
+            <div class="control-container">
+                <span class="control-title">Event summary</span>
+                <input formControlName="summary" type="text">
+            </div>
+
+            <div class="control-container">
+                <span class="control-title">Event Description</span>
+                <input formControlName="description" type="text">
+            </div>
+            <div class="delete-event">
+                <button type="button" class="delete-button" (click)="deleteEvent(i)">Delete event</button>
+            </div>
+        </div>
+    </div>
+
+    <button type="submit" [disabled]="!eventForm.valid">Submit</button>
+    <button type="button" (click)="addEvent()">Add event</button>
+</form>
+
+{{eventForm.value | json}}

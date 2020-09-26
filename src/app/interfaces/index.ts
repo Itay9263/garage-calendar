@@ -1,0 +1,1 @@
+export { ICalendarEvent } from './calendar-event.interface'

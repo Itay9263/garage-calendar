@@ -1,0 +1,26 @@
+.group-container {
+    margin-bottom: 15px;
+}
+
+.control-title {
+    margin-bottom: 5px;
+    margin-top: 5px;
+}
+
+.control-container {
+    display: flex;
+    flex-direction: column;
+}
+
+input {
+    width: 30%;
+}
+
+.delete-button {
+    float: right;
+}
+
+.delete-event {
+    width: 30%;
+    margin-top: 15px;
+}

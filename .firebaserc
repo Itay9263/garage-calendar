@@ -1,0 +1,11 @@
+{
+  "targets": {
+    "garage-calendar-1601035515139": {
+      "hosting": {
+        "garage-calender": [
+          "garage-calendar-1601035515139"
+        ]
+      }
+    }
+  }
+}
