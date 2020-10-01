@@ -67,10 +67,10 @@ export class AuthService {
       await gapi.client.calendar.events.insert({
         calendarId: 'primary',
         start: {
-          dateTime: moment(event.treatmentDate).toISOString(),
+          dateTime: moment(event.treatmentDate).subtract(1, 'month').toISOString(),
         },
         end: {
-          dateTime: moment(event.treatmentDate).toISOString(),
+          dateTime: moment(event.treatmentDate).subtract(1, 'month').toISOString(),
         },
         summary: event.summary,
         description: event.description
@@ -78,10 +78,10 @@ export class AuthService {
       await gapi.client.calendar.events.insert({
         calendarId: 'primary',
         start: {
-          dateTime: moment(event.testDate).toISOString()
+          dateTime: moment(event.testDate).subtract(1, 'month').toISOString()
         },
         end: {
-          dateTime: moment(event.testDate).toISOString(),
+          dateTime: moment(event.testDate).subtract(1, 'month').toISOString(),
         },
         summary: event.summary,
         description: event.description

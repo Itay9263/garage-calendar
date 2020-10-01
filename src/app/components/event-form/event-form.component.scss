@@ -1,5 +1,6 @@
-.group-container {
-    margin-bottom: 15px;
+.form-container {
+    width: 30%;
+    min-width: 30%;
 }
 
 .control-title {
@@ -10,17 +11,17 @@
 .control-container {
     display: flex;
     flex-direction: column;
-}
-
-input {
-    width: 30%;
-}
-
-.delete-button {
-    float: right;
+    justify-content: center;
 }
 
 .delete-event {
-    width: 30%;
     margin-top: 15px;
+    text-align: right;
+}
+
+.action-buttons {
+    margin-top: 15px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
 }

@@ -1,33 +1,35 @@
-<form [formGroup]="eventForm" (ngSubmit)="submitForm()">
-    <div class="group-container" formArrayName="events" *ngFor="let event of events.controls; let i = index">
-        <div [formGroupName]="i">
-            <div class="control-container">
-                <span class="control-title">Treatment Date</span>
-                <input formControlName="treatmentDate" type="datetime-local">
-            </div>
+<div class="form-container">
+    <form [formGroup]="eventForm" (ngSubmit)="submitForm()">
+        <div class="group-container" formArrayName="events" *ngFor="let event of events.controls; let i = index">
+            <div [formGroupName]="i">
+                <div class="delete-event">
+                    <button type="button" class="delete-button" (click)="deleteEvent(i)">Delete event</button>
+                </div>
+                <div class="control-container">
+                    <span class="control-title">Treatment Date</span>
+                    <input formControlName="treatmentDate" type="datetime-local">
+                </div>
 
-            <div class="control-container">
-                <span class="control-title">Test Date</span>
-                <input formControlName="testDate" type="datetime-local">
-            </div>
+                <div class="control-container">
+                    <span class="control-title">Test Date</span>
+                    <input formControlName="testDate" type="datetime-local">
+                </div>
 
-            <div class="control-container">
-                <span class="control-title">Event summary</span>
-                <input formControlName="summary" type="text">
-            </div>
+                <div class="control-container">
+                    <span class="control-title">Event summary</span>
+                    <input formControlName="summary" type="text">
+                </div>
 
-            <div class="control-container">
-                <span class="control-title">Event Description</span>
-                <input formControlName="description" type="text">
-            </div>
-            <div class="delete-event">
-                <button type="button" class="delete-button" (click)="deleteEvent(i)">Delete event</button>
+                <div class="control-container">
+                    <span class="control-title">Event Description</span>
+                    <input formControlName="description" type="text">
+                </div>
             </div>
         </div>
-    </div>
-
-    <button type="submit" [disabled]="!eventForm.valid">Submit</button>
-    <button type="button" (click)="addEvent()">Add event</button>
-</form>
-
+        <div class="action-buttons">
+            <button type="submit" [disabled]="!eventForm.valid || !events.length">Submit</button>
+            <button type="button" (click)="addEvent()">Add event</button>
+        </div>
+    </form>
+</div>
 {{eventForm.value | json}}
