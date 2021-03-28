@@ -8,6 +8,7 @@ import { AngularFireAuthModule } from '@angular/fire/auth';
 import { environment } from 'src/environments/environment';
 import { EventFormComponent } from './components/event-form/event-form.component';
 import { ReactiveFormsModule } from '@angular/forms';
+// import { ToastrModule } from "ngx-toastr";
 
 @NgModule({
   declarations: [
@@ -19,7 +20,8 @@ import { ReactiveFormsModule } from '@angular/forms';
     AppRoutingModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireAuthModule, 
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    // ToastrModule.forRoot({})
    ],
   bootstrap: [AppComponent]
 })

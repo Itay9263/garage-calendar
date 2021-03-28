@@ -6,7 +6,6 @@ import { auth } from 'firebase/app';
 import * as moment from 'moment';
 import { ICalendarEvent } from '../interfaces';
 import { environment } from 'src/environments/environment';
-import { env } from 'process';
 
 declare var gapi: any;
 
@@ -28,17 +27,9 @@ export class AuthService {
   initClient() {
     gapi.load('client', () => {
       console.log('loaded client')
-
-      // It's OK to expose these credentials, they are client safe.
-      gapi.client.init({
-        apiKey: environment.gapi.apiKey,
-        clientId: environment.gapi.clientId,
-        discoveryDocs: environment.gapi.discoveryDocs,
-        scope: environment.gapi.scope
-      })
-
+      const gapiClientDetails = environment.gapi;
+      gapi.client.init(gapiClientDetails);
       gapi.client.load('calendar', 'v3', () => console.log('loaded calendar'));
-
     });
 
 
@@ -48,46 +39,85 @@ export class AuthService {
   async login() {
     const googleAuth = gapi.auth2.getAuthInstance()
     const googleUser = await googleAuth.signIn();
-
     const token = googleUser.getAuthResponse().id_token;
-
-    console.log(googleUser)
-
     const credential = auth.GoogleAuthProvider.credential(token);
-
-    await this.afAuth.signInAndRetrieveDataWithCredential(credential);
+    await this.afAuth.signInWithCredential(credential);
 
   }
   logout() {
     this.afAuth.signOut();
   }
 
-  async insertEvents(allEvents: ICalendarEvent[]) {
+  async insertEvents(allEvents: ICalendarEvent[]): Promise<void> {
     for (const event of allEvents) {
+
       await gapi.client.calendar.events.insert({
         calendarId: 'primary',
         start: {
-          dateTime: moment(event.treatmentDate).toISOString(),
+          dateTime: moment(event.treatmentDate).add(11, "months").subtract(1, "day").toISOString(),
         },
         end: {
-          dateTime: moment(event.treatmentDate).toISOString(),
+          dateTime: moment(event.treatmentDate).add(11, "months").subtract(1, "day").toISOString(),
         },
-        summary: event.summary,
-        description: event.description
+        attendees: [{ email: event.email }],
+        summary: `Next treatment - ${event.vehicleNumber}`
       })
+
       await gapi.client.calendar.events.insert({
         calendarId: 'primary',
         start: {
-          dateTime: moment(event.testDate).toISOString()
+          dateTime: moment(event.testDate).add(11, "months").subtract(1, "day").toISOString()
         },
         end: {
-          dateTime: moment(event.testDate).toISOString(),
+          dateTime: moment(event.testDate).add(11, "months").subtract(1, "day").toISOString(),
         },
-        summary: event.summary,
-        description: event.description
+        attendees: [{ email: event.email }],
+        summary: `Next test - ${event.vehicleNumber}`
+      })
+
+      await gapi.client.calendar.events.insert({
+        calendarId: 'primary',
+        start: {
+          dateTime: moment(event.insuranceStartDate).add(11, "months").subtract(1, "day").toISOString()
+        },
+        end: {
+          dateTime: moment(event.insuranceStartDate).add(11, "months").subtract(1, "day").toISOString(),
+        },
+        attendees: [{ email: event.email }],
+        summary: `Insurance end date - ${event.vehicleNumber}`
       })
     }
   }
 
+
+  // async insertEvents(allEvents: ICalendarEvent[]): Promise<string> {
+  //   await Promise.all(allEvents.map(event => {
+  //     return [
+  //       gapi.client.calendar.events.insert({
+  //         calendarId: 'primary',
+  //         start: {
+  //           dateTime: moment(event.treatmentDate).toISOString(),
+  //         },
+  //         end: {
+  //           dateTime: moment(event.treatmentDate).toISOString(),
+  //         },
+  //         summary: event.summary,
+  //         description: event.description
+  //       }),
+  //       gapi.client.calendar.events.insert({
+  //         calendarId: 'primary',
+  //         start: {
+  //           dateTime: moment(event.testDate).toISOString()
+  //         },
+  //         end: {
+  //           dateTime: moment(event.testDate).toISOString(),
+  //         },
+  //         summary: event.summary,
+  //         description: event.description
+  //       })
+  //     ]
+  //   }))
+  //   return "Events inserted successfully"
+  // }
 
 }

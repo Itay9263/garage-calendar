@@ -1,6 +1,7 @@
 export interface ICalendarEvent {
+    vehicleNumber: string;
+    email: string;
     treatmentDate: string;
     testDate: string;
-    summary: string;
-    description: string
+    insuranceStartDate: string;
 }

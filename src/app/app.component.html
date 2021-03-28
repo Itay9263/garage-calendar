@@ -1,6 +1,7 @@
+<div class="body">
   <div *ngIf="auth.user$ | async as user">
-      <h3>Logged in as {{ user.displayName }}</h3>
-      <img src="{{ user.photoURL }}" width="50px">
+    <h3>Logged in as {{ user.displayName }}</h3>
+    <img src="{{ user.photoURL }}" width="50px">
   </div>
 
   <button *ngIf="!(auth.user$ | async)" (click)="auth.login()" class="button is-danger">Login with Google</button>
@@ -8,6 +9,6 @@
 
   <hr>
 
-
   <app-event-form *ngIf="auth.user$ | async as user"></app-event-form>
-<router-outlet></router-outlet>
+  <router-outlet></router-outlet>
+</div>

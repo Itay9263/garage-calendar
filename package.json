@@ -22,6 +22,7 @@
     "@angular/router": "~9.0.6",
     "firebase": "^7.13.1",
     "moment": "^2.29.0",
+    "ngx-toastr": "^8.10.2",
     "rxjs": "~6.5.4",
     "tslib": "^1.10.0",
     "zone.js": "~0.10.2"
